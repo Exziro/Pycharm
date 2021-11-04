@@ -4,29 +4,31 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import re
-from janome.tokenizer import Tokenizer
-import CBOW
-file = open('/Users/qiyixi/Downloads/Pycharm/corpus20150426.txt','r',encoding='sjis')
-text = file.read()
-#print(text[100])
-t = Tokenizer()
+#分词
+# from janome.tokenizer import Tokenizer
+# import CBOW
+# file = open('/Users/qiyixi/Downloads/Pycharm/corpus20150426.txt','r',encoding='sjis')
+# text = file.read()
+# #print(text[100])
+# t = Tokenizer()
+# #
+# def extract_words(test):
+#     tokens = t.tokenize(test)
+#     return [token.base_form for token in tokens
+#         if token.part_of_speech.split(',')[0] in['名詞','動詞','形容詞']]
 #
-def extract_words(test):
-    tokens = t.tokenize(test)
-    return [token.base_form for token in tokens
-        if token.part_of_speech.split(',')[0] in['名詞','動詞','形容詞']]
-#
-#
-#
-#
-sentences = text.split('。')
+# #
+# #
+# #
+# sentences = text.split('。')
 # #tokens = t.tokenize(sentences[2])
 # #print(tokens)
 # # for token in tokens:
 # #     print(token)
 # #word_list = [extract_words(sentences[2])]
 #
-word_list = [extract_words(sentence)for sentence in sentences]
+#####################################################################
+#word_list = [extract_words(sentence)for sentence in sentences]
 #
 # txt = open('./corpus.txt','w',encoding='sjis')
 # for word_2 in word_list:
@@ -37,20 +39,28 @@ word_list = [extract_words(sentence)for sentence in sentences]
 # print(word_list)
 
 
-
+##################################################################### 训练
 from gensim.models import word2vec
 # file = open('./corpus.txt','r',encoding='sjis')
 # word_list = file.read()
 # my_list = word_list.split(',')
 # print(my_list[:100])
-model = word2vec.Word2Vec(word_list,sg=1)
-ret = model.wv.most_similar(positive=['佐川'])
-for item in ret :
-    print(item[0],item[1])
-model.save('./Word_Skip.w2v')
+# model = word2vec.Word2Vec(word_list,sg=1)
+# ret = model.wv.most_similar(positive=['佐川'])
+#
+# for item in ret :
+#     print(item[0],item[1])
+# model.save('./Word_Skip.w2v')
 # file.close()
 # Press the green button in the gutter to run the script.
 #if __name__ == '__main__':
     #print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#####################################################################读取
+modle = word2vec.Word2Vec.load('./Word_CBOW.w2v')
+
+ret1 = modle.wv.most_similar(positive=['佐川'])
+ret2 = modle.wv.similarity("佐川","高知")
+print(ret1)
+print(ret2)
