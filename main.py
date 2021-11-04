@@ -43,11 +43,11 @@ from gensim.models import word2vec
 # word_list = file.read()
 # my_list = word_list.split(',')
 # print(my_list[:100])
-model = word2vec.Word2Vec(word_list,min_count=2,sg=0)
+model = word2vec.Word2Vec(word_list,sg=1)
 ret = model.wv.most_similar(positive=['佐川'])
 for item in ret :
     print(item[0],item[1])
-model.save('./Word_CBOW.w2v')
+model.save('./Word_Skip.w2v')
 # file.close()
 # Press the green button in the gutter to run the script.
 #if __name__ == '__main__':
